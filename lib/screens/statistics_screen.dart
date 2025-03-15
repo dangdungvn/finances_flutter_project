@@ -542,7 +542,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
             gridData: FlGridData(
               show: true,
               drawVerticalLine: false,
-              horizontalInterval: (maxY - minY) / 4,
+              horizontalInterval: minY == maxY ? 1.0 : (maxY - minY) / 4,
               getDrawingHorizontalLine: (value) => FlLine(
                 color: Colors.grey.withOpacity(0.1),
                 strokeWidth: 1,
