@@ -244,25 +244,26 @@ class _HomeScreenContent extends StatelessWidget {
               ),
 
               // Transaction List
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    if (provider.transactions.isEmpty) {
-                      return _buildEmptyTransactionState();
-                    }
+              provider.transactions.isEmpty
+                  ? SliverToBoxAdapter(
+                      child: _buildEmptyTransactionState(),
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          if (index >= provider.transactions.length ||
+                              index >= 5) {
+                            return null;
+                          }
 
-                    if (index >= provider.transactions.length || index >= 5) {
-                      return null;
-                    }
-
-                    final transaction = provider.transactions[index];
-                    return _TransactionCard(
-                      transaction: transaction,
-                      currencyFormat: currencyFormat,
-                    );
-                  },
-                ),
-              ),
+                          final transaction = provider.transactions[index];
+                          return _TransactionCard(
+                            transaction: transaction,
+                            currencyFormat: currencyFormat,
+                          );
+                        },
+                      ),
+                    ),
 
               // Bottom Space
               const SliverToBoxAdapter(
@@ -336,12 +337,16 @@ class _HomeScreenContent extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => Container(
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(24),
           ),
+        ),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
