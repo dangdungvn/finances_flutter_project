@@ -682,6 +682,7 @@ class _HomeScreenContent extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 116, 116, 116),
                   ),
                   textAlign: TextAlign.center,
                 ),
